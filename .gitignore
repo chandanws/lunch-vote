@@ -1,3 +1,11 @@
+.idea
+out
+target
+*.iml
+
+# Patch Files #
+*.patch
+
 # Compiled class file
 *.class
 
