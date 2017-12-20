@@ -1,4 +1,4 @@
-package java.io.philip.lunchvote;
+package io.philipg.lunchvote;
 
 public class Main {
     public static void main(String[] args){
