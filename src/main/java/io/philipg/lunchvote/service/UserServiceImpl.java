@@ -16,6 +16,7 @@ import static io.philipg.lunchvote.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     private final UserRepository repository;
 
     @Autowired
