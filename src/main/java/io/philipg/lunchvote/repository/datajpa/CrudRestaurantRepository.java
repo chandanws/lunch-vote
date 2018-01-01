@@ -1,6 +1,6 @@
 package io.philipg.lunchvote.repository.datajpa;
 
-import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.Restaurant;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,21 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
+public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
+
     @Transactional
     @Modifying
-    @Query("DELETE FROM Dish d WHERE d.id=:id")
+    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
 
     @Override
     @Transactional
-    Dish save(Dish dish);
+    Restaurant save (Restaurant restaurant);
 
     @Override
-    Optional<Dish> findById(Integer id);
-
-    List<Dish> findByNameContaining(String name);
+    Optional<Restaurant> findById(Integer id);
 
     @Override
-    List<Dish> findAll(Sort sort);
+    List<Restaurant> findAll(Sort sort);
 }

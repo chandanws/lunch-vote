@@ -1,6 +1,7 @@
 DELETE FROM user_roles;
 DELETE FROM users;
 DELETE FROM dishes;
+DELETE FROM restaurants;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password) VALUES
@@ -19,3 +20,7 @@ INSERT INTO dishes (name, price, description, state) VALUES
   ('Hot dog', 25, 'Hot Dog Ingredients', 'STATE_ACTIVE'),
   ('Pasta', 50, 'Pasta Ingredients', 'STATE_ACTIVE'),
   ('Sandwich', 20, 'Sandwich Ingredients', 'STATE_ACTIVE');
+
+INSERT INTO restaurants (name, address, phone, website, state) VALUES
+  ('Corsar', 'Rehov Onyon 1, Ashdod, Israel', '+972 8-855-5090', 'https://corsar.com', 'STATE_ACTIVE'),
+  ('Pinta', '1 Ha Ha-Banaim, Ashdod 7760901, Israel', '+972 8-856-6069', 'https://pinta.com', 'STATE_ACTIVE');
