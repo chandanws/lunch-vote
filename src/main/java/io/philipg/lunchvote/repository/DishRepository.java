@@ -1,7 +1,6 @@
 package io.philipg.lunchvote.repository;
 
 import io.philipg.lunchvote.model.Dish;
-import io.philipg.lunchvote.model.Restaurant;
 
 import java.util.List;
 
@@ -15,5 +14,8 @@ public interface DishRepository {
     // null if not found
     Dish get(int id);
 
-    List<Dish> getAll(int menuId);
+    // null if not found
+    List<Dish> getByName(String name);
+
+    List<Dish> getAll();
 }
