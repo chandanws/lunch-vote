@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.repository.datajpa;
 
 import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.State;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     @Modifying
-    @Query("DELETE FROM Dish d WHERE d.id=:id")
+    @Query("UPDATE Dish d SET d.state='STATE_REMOVED' WHERE d.id=:id")
     int delete(@Param("id") int id);
 
     @Override
@@ -29,4 +30,6 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     @Override
     List<Dish> findAll(Sort sort);
+
+    List<Dish> findAllByStateIn(Iterable<State> state, Sort sort);
 }

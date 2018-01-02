@@ -25,6 +25,14 @@ public class Dish extends AbstractNamedEntity {
         this.state = state;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +

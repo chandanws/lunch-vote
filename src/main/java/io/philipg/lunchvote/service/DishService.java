@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.service;
 
 import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface DishService {
     void update(Dish dish);
 
     List<Dish> getAll();
+
+    List<Dish> getAllByState(State... states);
 }

@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.repository;
 
 import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.State;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface DishRepository {
     List<Dish> getByName(String name);
 
     List<Dish> getAll();
+
+    List<Dish> getAllByState(Iterable<State> states);
 }

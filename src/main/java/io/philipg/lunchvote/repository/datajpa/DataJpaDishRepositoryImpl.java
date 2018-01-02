@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.repository.datajpa;
 
 import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,5 +39,10 @@ public class DataJpaDishRepositoryImpl implements DishRepository{
     @Override
     public List<Dish> getAll() {
         return crudRepository.findAll(SORT_NAME_NAME);
+    }
+
+    @Override
+    public List<Dish> getAllByState(Iterable<State> states) {
+        return crudRepository.findAllByStateIn(states, SORT_NAME_NAME);
     }
 }

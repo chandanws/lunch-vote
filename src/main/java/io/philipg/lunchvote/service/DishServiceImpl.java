@@ -1,12 +1,14 @@
 package io.philipg.lunchvote.service;
 
 import io.philipg.lunchvote.model.Dish;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.DishRepository;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static io.philipg.lunchvote.util.ValidationUtil.checkNotFound;
@@ -53,5 +55,10 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<Dish> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public List<Dish> getAllByState(State... states) {
+        return repository.getAllByState(Arrays.asList(states));
     }
 }

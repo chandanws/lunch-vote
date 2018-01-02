@@ -31,9 +31,9 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void create(){
-        Dish created = new Dish(null, "Apple pie", 10, "Apple pie", State.STATE_ACTIVE);
+        Dish created = getCreated();
         service.create(created);
-        assertMatch(service.getAll(), created, DISH1, DISH2, DISH3, DISH4, DISH5, DISH6);
+        assertMatch(service.getAllByState(State.STATE_ACTIVE), created, DISH1, DISH2, DISH4, DISH5);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void delete(){
         service.delete(DISH1_ID);
-        assertMatch(service.getAll(), DISH2, DISH3, DISH4, DISH5, DISH6);
+        assertMatch(service.getAllByState(State.STATE_ACTIVE), DISH2, DISH4, DISH5);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class DishServiceTest extends AbstractServiceTest {
         assertMatch(dish, DISH1);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(13);
@@ -82,6 +82,18 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll(){
-        assertMatch(service.getAll(), DISHES);
+        assertMatch(service.getAll(), DISHES_ALL);
+    }
+
+    @Test
+    public void getAllByState(){
+        List<Dish> all = service.getAllByState(State.STATE_ACTIVE);
+        assertMatch(all, DISHES_ACTIVE);
+    }
+
+    @Test
+    public void getAllByStateNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        service.getAllByState(null);
     }
 }
