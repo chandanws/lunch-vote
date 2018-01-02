@@ -42,8 +42,9 @@ public class UserServiceTest extends AbstractServiceTest {
         assertMatch(service.getAll(), ADMIN, newUser, USER);
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void duplicateMailCreate() throws Exception {
+        thrown.expect(DataAccessException.class);
         service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
@@ -64,8 +65,9 @@ public class UserServiceTest extends AbstractServiceTest {
         assertMatch(user, ADMIN);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.get(1);
     }
 
