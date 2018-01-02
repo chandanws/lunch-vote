@@ -1,9 +1,10 @@
 package io.philipg.lunchvote.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "dishes")
@@ -15,6 +16,12 @@ public class Dish extends AbstractNamedEntity {
 
     @Enumerated(EnumType.STRING)
     private State state = State.STATE_ACTIVE;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Restaurant restaurant;
 
     public Dish() {}
 
@@ -33,12 +40,20 @@ public class Dish extends AbstractNamedEntity {
         this.state = state;
     }
 
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                "price=" + price +
+                ", price=" + price +
                 ", description='" + description + '\'' +
                 ", state=" + state +
                 '}';

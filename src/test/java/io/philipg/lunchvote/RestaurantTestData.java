@@ -11,7 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestaurantTestData {
 
-    public static final int RESTAURANT1_ID = START_SEQ + 8;
+    public static final int RESTAURANT1_ID = START_SEQ + 2;
+    public static final int RESTAURANT3_ID = START_SEQ + 4;
 
     public static final Restaurant RESTAURANT1 = new Restaurant(RESTAURANT1_ID, "Corsar", "Rehov Onyon 1, Ashdod, Israel", "+972 8-855-5090", "https://corsar.com", State.STATE_ACTIVE);
     public static final Restaurant RESTAURANT2 = new Restaurant(RESTAURANT1_ID + 2, "Kira", "Givat Yona 4, Yair Stern, Ashdod 7722611, Israel", "+972 8-856-1632", "https://kira.com", State.STATE_DISABLED);
@@ -29,7 +30,7 @@ public class RestaurantTestData {
     public static final List<Restaurant> RESTAURANTS_ALL_ACTIVE = Arrays.asList(RESTAURANT1, RESTAURANT3);
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dishes");
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Restaurant... expected) {
@@ -37,6 +38,6 @@ public class RestaurantTestData {
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Iterable<Restaurant> expected){
-        assertThat(actual).usingElementComparatorIgnoringFields("").isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("dishes").isEqualTo(expected);
     }
 }

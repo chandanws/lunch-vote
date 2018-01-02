@@ -7,18 +7,20 @@ import java.util.List;
 
 public interface DishRepository {
 
-    Dish save (Dish dish);
+    Dish save (Dish dish, int restaurantId);
 
     // false if not found
-    boolean delete(int id);
+    boolean delete(int id, int restaurantId);
 
     // null if not found
-    Dish get(int id);
+    Dish get(int id, int restaurantId);
+
+    Dish getWithRestaurant(int id, int restaurantId);
 
     // null if not found
     List<Dish> getByName(String name);
 
-    List<Dish> getAll();
+    List<Dish> getAll(int restaurantId);
 
-    List<Dish> getAllByState(Iterable<State> states);
+    List<Dish> getAllByState(int restaurantId, Iterable<State> states);
 }

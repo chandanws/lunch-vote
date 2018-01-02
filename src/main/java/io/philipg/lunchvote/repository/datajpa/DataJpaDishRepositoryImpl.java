@@ -4,45 +4,57 @@ import io.philipg.lunchvote.model.Dish;
 import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 public class DataJpaDishRepositoryImpl implements DishRepository{
-    private static final Sort SORT_NAME_NAME = new Sort(Sort.Direction.ASC, "name", "name");
 
     @Autowired
-    private CrudDishRepository crudRepository;
+    private CrudDishRepository crudDishRepository;
+
+    @Autowired
+    private CrudRestaurantRepository crudRestaurantRepository;
 
     @Override
-    public Dish save(Dish dish) {
-        return crudRepository.save(dish);
+    @Transactional
+    public Dish save(Dish dish, int restaurantId) {
+        if (!dish.isNew() && get(dish.getId(), restaurantId) == null){
+            return null;
+        }
+        dish.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+        return crudDishRepository.save(dish);
     }
 
     @Override
-    public boolean delete(int id) {
-        return crudRepository.delete(id) !=0;
+    public boolean delete(int id, int restaurantId) {
+        return crudDishRepository.delete(id, restaurantId) !=0;
     }
 
     @Override
-    public Dish get(int id) {
-        return crudRepository.findById(id).orElse(null);
+    public Dish get(int id, int restaurantId) {
+        return crudDishRepository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId).orElse(null);
+    }
+
+    @Override
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return crudDishRepository.getWithRestaurant(id, restaurantId);
     }
 
     @Override
     public List<Dish> getByName(String name) {
-        return crudRepository.findByNameContaining(name);
+        return crudDishRepository.findByNameContaining(name);
     }
 
     @Override
-    public List<Dish> getAll() {
-        return crudRepository.findAll(SORT_NAME_NAME);
+    public List<Dish> getAll(int restaurantId) {
+        return crudDishRepository.getAll(restaurantId);
     }
 
     @Override
-    public List<Dish> getAllByState(Iterable<State> states) {
-        return crudRepository.findAllByStateIn(states, SORT_NAME_NAME);
+    public List<Dish> getAllByState(int restaurantId, Iterable<State> states) {
+        return crudDishRepository.getAllByStateIn(states, restaurantId);
     }
 }

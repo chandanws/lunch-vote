@@ -1,10 +1,8 @@
 package io.philipg.lunchvote.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
@@ -17,6 +15,10 @@ public class Restaurant extends AbstractNamedEntity {
 
     @Enumerated(EnumType.STRING)
     private State state = State.STATE_ACTIVE;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("name ASC")
+    private List<Dish> dishes;
 
     public Restaurant(){}
 

@@ -25,19 +25,24 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish create(Dish dish) {
+    public Dish create(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        return repository.save(dish);
+        return repository.save(dish, restaurantId);
     }
 
     @Override
-    public void delete(int id) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id, int restaurantId) throws NotFoundException {
+        checkNotFoundWithId(repository.delete(id, restaurantId), id);
     }
 
     @Override
-    public Dish get(int id) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id), id);
+    public Dish get(int id, int restaurantId) throws NotFoundException {
+        return checkNotFoundWithId(repository.get(id, restaurantId), id);
+    }
+
+    @Override
+    public Dish getWithRestaurant(int id, int restaurantId) throws NotFoundException {
+        return checkNotFoundWithId(repository.getWithRestaurant(id, restaurantId), id);
     }
 
     @Override
@@ -47,18 +52,18 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public void update(Dish dish) {
+    public void update(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        checkNotFoundWithId(repository.save(dish), dish.getId());
+        checkNotFoundWithId(repository.save(dish, restaurantId), dish.getId());
     }
 
     @Override
-    public List<Dish> getAll() {
-        return repository.getAll();
+    public List<Dish> getAll(int restaurantId) {
+        return repository.getAll(restaurantId);
     }
 
     @Override
-    public List<Dish> getAllByState(State... states) {
-        return repository.getAllByState(Arrays.asList(states));
+    public List<Dish> getAllByState(int restaurantId, State... states) {
+        return repository.getAllByState(restaurantId, Arrays.asList(states));
     }
 }

@@ -1,5 +1,7 @@
 package io.philipg.lunchvote.service;
 
+import io.philipg.lunchvote.RestaurantTestData;
+import io.philipg.lunchvote.UserTestData;
 import io.philipg.lunchvote.model.Dish;
 import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.JpaUtil;
@@ -12,6 +14,9 @@ import org.springframework.cache.CacheManager;
 import java.util.List;
 
 import static io.philipg.lunchvote.DishTestData.*;
+import static io.philipg.lunchvote.RestaurantTestData.RESTAURANT1;
+import static io.philipg.lunchvote.RestaurantTestData.RESTAURANT1_ID;
+import static io.philipg.lunchvote.RestaurantTestData.RESTAURANT3_ID;
 
 public class DishServiceTest extends AbstractServiceTest {
     @Autowired
@@ -32,46 +37,47 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void create(){
         Dish created = getCreated();
-        service.create(created);
-        assertMatch(service.getAllByState(State.STATE_ACTIVE), created, DISH1, DISH2, DISH4, DISH5);
+        service.create(created, RESTAURANT1_ID);
+        assertMatch(service.getAllByState(RESTAURANT1_ID, State.STATE_ACTIVE), DISH1, DISH2, created);
     }
 
     @Test
     public void update(){
         Dish updated = getUpdated();
-        service.update(updated);
-        assertMatch(service.get(DISH1_ID), updated);
+        service.update(updated, RESTAURANT1_ID);
+        assertMatch(service.get(DISH1_ID, RESTAURANT1_ID), updated);
     }
 
-    //@Test
+    @Test
     public void updateNotFound(){
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + DISH1_ID);
-        service.update(DISH2);
+        Dish updated = getUpdated();
+        service.update(updated, RESTAURANT3_ID);
     }
 
     @Test
     public void delete(){
-        service.delete(DISH1_ID);
-        assertMatch(service.getAllByState(State.STATE_ACTIVE), DISH2, DISH4, DISH5);
+        service.delete(DISH1_ID, RESTAURANT1_ID);
+        assertMatch(service.getAllByState(RESTAURANT1_ID, State.STATE_ACTIVE), DISH2);
     }
 
     @Test
     public void notFoundDelete(){
         thrown.expect(NotFoundException.class);
-        service.delete(13);
+        service.delete(DISH1_ID, RESTAURANT3_ID);
     }
 
     @Test
     public void get(){
-        Dish dish = service.get(DISH1_ID);
+        Dish dish = service.get(DISH1_ID, RESTAURANT1_ID);
         assertMatch(dish, DISH1);
     }
 
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(13);
+        service.get(DISH1_ID, RESTAURANT3_ID);
     }
 
     @Test
@@ -82,18 +88,25 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll(){
-        assertMatch(service.getAll(), DISHES_ALL);
+        assertMatch(service.getAll(RESTAURANT1_ID), DISH1, DISH2, DISH3);
     }
 
     @Test
     public void getAllByState(){
-        List<Dish> all = service.getAllByState(State.STATE_ACTIVE);
-        assertMatch(all, DISHES_ACTIVE);
+        List<Dish> all = service.getAllByState(RESTAURANT1_ID,State.STATE_ACTIVE);
+        assertMatch(all, DISH1, DISH2);
     }
 
     @Test
-    public void getAllByStateNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        service.getAllByState(null);
+    public void getWithRestaurant(){
+        Dish dish = service.getWithRestaurant(DISH1_ID, RESTAURANT1_ID);
+        assertMatch(dish, DISH1);
+        RestaurantTestData.assertMatch(dish.getRestaurant(), RESTAURANT1);
+    }
+
+    @Test
+    public void getWithRestaurantNotFound(){
+        thrown.expect(NotFoundException.class);
+        service.getWithRestaurant(DISH1_ID, RESTAURANT3_ID);
     }
 }
