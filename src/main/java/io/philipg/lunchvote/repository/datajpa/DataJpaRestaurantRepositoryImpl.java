@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.repository.datajpa;
 
 import io.philipg.lunchvote.model.Restaurant;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -33,5 +34,10 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public List<Restaurant> getAll() {
         return crudRepository.findAll(SORT_NAME_NAME);
+    }
+
+    @Override
+    public List<Restaurant> getAllByState(State state) {
+        return crudRepository.findAllByStateEquals(state, SORT_NAME_NAME);
     }
 }

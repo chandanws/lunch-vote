@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.service;
 
 import io.philipg.lunchvote.model.Restaurant;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface RestaurantService {
     void update(Restaurant restaurant);
 
     List<Restaurant> getAll();
+
+    List<Restaurant> getAllByState(State state);
 }

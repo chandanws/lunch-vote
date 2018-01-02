@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.service;
 
 import io.philipg.lunchvote.model.Restaurant;
+import io.philipg.lunchvote.model.State;
 import io.philipg.lunchvote.repository.JpaUtil;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
          Restaurant newRestaurant = getCreated();
          Restaurant created = service.create(newRestaurant);
          newRestaurant.setId(created.getId());
-         assertMatch(service.getAll(), RESTAURANT1, RESTAURANT2, created);
+         assertMatch(service.getAllByState(State.STATE_ACTIVE), RESTAURANT1, RESTAURANT3, created);
      }
 
      //TODO Check duplicate restaurant
@@ -41,7 +42,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void delete() throws Exception {
         service.delete(RESTAURANT1_ID);
-        assertMatch(service.getAll(), RESTAURANT2);
+        assertMatch(service.getAllByState(State.STATE_ACTIVE), RESTAURANT3);
     }
 
     @Test
@@ -66,6 +67,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void update() throws Exception {
         Restaurant updated = getUpdated();
         updated.setName("UpdatedName");
+        updated.setState(State.STATE_REMOVED);
         service.update(updated);
         assertMatch(service.get(RESTAURANT1_ID), updated);
     }
@@ -73,6 +75,18 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         List<Restaurant> all = service.getAll();
-        assertMatch(all, RESTAURANT1, RESTAURANT2);
+        assertMatch(all, RESTAURANT1, RESTAURANT2, RESTAURANT3);
+    }
+
+    @Test
+    public void getAllByState() throws Exception {
+        List<Restaurant> all = service.getAllByState(State.STATE_ACTIVE);
+        assertMatch(all, RESTAURANT1, RESTAURANT3);
+    }
+
+    @Test
+    public void getAllByStateIllegalArgument() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        service.getAllByState(null);
     }
 }

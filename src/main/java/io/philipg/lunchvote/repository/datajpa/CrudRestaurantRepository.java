@@ -1,6 +1,7 @@
 package io.philipg.lunchvote.repository.datajpa;
 
 import io.philipg.lunchvote.model.Restaurant;
+import io.philipg.lunchvote.model.State;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,7 +17,7 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
+    @Query("UPDATE Restaurant r SET r.state='STATE_REMOVED' WHERE r.id=:id")
     int delete(@Param("id") int id);
 
     @Override
@@ -28,4 +29,6 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     @Override
     List<Restaurant> findAll(Sort sort);
+
+    List<Restaurant> findAllByStateEquals(State state, Sort sort);
 }
