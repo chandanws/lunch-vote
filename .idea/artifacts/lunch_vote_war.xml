@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="lunch-vote:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="lunch-vote.war">
-      <element id="artifact" artifact-name="lunch-vote:war exploded" />
-    </root>
-  </artifact>
-</component>
