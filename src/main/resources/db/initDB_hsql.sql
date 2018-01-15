@@ -1,3 +1,4 @@
+DROP TABLE votes IF EXISTS;
 DROP TABLE dishes IF EXISTS;
 DROP TABLE restaurants IF EXISTS;
 DROP TABLE user_roles IF EXISTS;
@@ -44,4 +45,13 @@ CREATE TABLE dishes
   state           VARCHAR(255)            NOT NULL,
   restaurant_id   INTEGER                 NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id) ON DELETE CASCADE
+);
+
+CREATE TABLE votes
+(
+  user_id              INTEGER NOT NULL,
+  restaurant_id        INTEGER NOT NULL,
+  registered_date      DATE NOT NULL,
+  registered_time      TIMESTAMP NOT NULL,
+  CONSTRAINT      votes_idx UNIQUE (user_id, restaurant_id, registered_date)
 );

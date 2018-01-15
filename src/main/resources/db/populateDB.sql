@@ -1,3 +1,4 @@
+DELETE FROM votes;
 DELETE FROM user_roles;
 DELETE FROM users;
 DELETE FROM dishes;
@@ -25,3 +26,9 @@ INSERT INTO dishes (name, price, description, state, restaurant_id) VALUES
   ('Hot dog', 25, 'Hot Dog Ingredients', 'STATE_ACTIVE', 100003),
   ('Pasta', 50, 'Pasta Ingredients', 'STATE_ACTIVE', 100003),
   ('Sandwich', 20, 'Sandwich Ingredients', 'STATE_REMOVED', 100003);
+
+INSERT INTO votes (user_id, restaurant_id, registered_date, registered_time) VALUES
+  (100000, 100002, CURRENT_DATE, CURRENT_TIMESTAMP),
+  (100000, 100003, CURRENT_DATE, CURRENT_TIMESTAMP),
+  (100000, 100002, CURRENT_DATE + '1' DAY, CURRENT_TIMESTAMP  + '1' DAY),
+  (100000, 100003, CURRENT_DATE + '1' DAY, CURRENT_TIMESTAMP  + '1' DAY);

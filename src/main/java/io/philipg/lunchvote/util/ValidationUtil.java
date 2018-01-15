@@ -3,6 +3,9 @@ package io.philipg.lunchvote.util;
 import io.philipg.lunchvote.model.AbstractBaseEntity;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class ValidationUtil {
 
     private ValidationUtil() {
@@ -24,6 +27,12 @@ public class ValidationUtil {
     public static void checkNotFound(boolean found, String msg) {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);
+        }
+    }
+
+    public static void checkAfterFinalHour(LocalTime registered, LocalTime finall){
+        if (registered.isAfter(finall)){
+            throw new NotFoundException(String.format("It is after %tR then it is too late, vote can't be changed", finall));
         }
     }
 

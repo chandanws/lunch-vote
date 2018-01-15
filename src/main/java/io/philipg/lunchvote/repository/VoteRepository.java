@@ -2,18 +2,20 @@ package io.philipg.lunchvote.repository;
 
 import io.philipg.lunchvote.model.Vote;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface VoteRepository {
 
     Vote save(Vote vote);
 
-    // false if not found
-    boolean delete(int id);
-
     // null if not found
-    Vote get(int restaurantId, int userId);
+    Vote get(int restaurantId, int userId, LocalDate registeredDate);
 
-    List<Vote> getAll(int restaurantId);
+    //TODO: Need to think
+    // User getByDate(Date date);
 
+    List<Vote> getAllByRestaurant(int restaurantId);
+
+    List<Vote> getAllByUser(int userId);
 }
