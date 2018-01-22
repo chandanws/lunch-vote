@@ -10,8 +10,12 @@
 
     <bean id="configProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>lunchvote.properties</value>
-        </property>
+        <property name="location" value="classpath:lunchvote.properties/"/>
+        <!--<property name="location">-->
+            <!---->
+            <!--&lt;!&ndash;<value>lunchvote.properties</value>&ndash;&gt;-->
+            <!--<value>file:///#{systemEnvironment['TOPJAVA_ROOT']}/lunchvote.properties</value>-->
+            <!--&lt;!&ndash;<property name="basenames" value="file:///#{systemEnvironment['TOPJAVA_ROOT']}/config/messages/app"/>&ndash;&gt;-->
+        <!--</property>-->
     </bean>
 </beans>
