@@ -1,9 +1,9 @@
 package io.philipg.lunchvote.util;
 
+import io.philipg.lunchvote.HasId;
 import io.philipg.lunchvote.model.AbstractBaseEntity;
 import io.philipg.lunchvote.util.exception.NotFoundException;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ValidationUtil {
@@ -39,6 +39,12 @@ public class ValidationUtil {
     public static void checkNew(AbstractBaseEntity entity) {
         if (!entity.isNew()) {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
+        }
+    }
+
+    public static void checkNew(HasId bean) {
+        if (!bean.isNew()) {
+            throw new IllegalArgumentException(bean + " must be new (id=null)");
         }
     }
 
