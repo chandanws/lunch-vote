@@ -2,6 +2,7 @@ package io.philipg.lunchvote.web;
 
 import io.philipg.lunchvote.model.Restaurant;
 import io.philipg.lunchvote.service.RestaurantService;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import static io.philipg.lunchvote.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "/restaurants", description = "Operations about restaurants")
 public class RestaurantRestController {
     static final String REST_URL = "/api/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -28,6 +30,11 @@ public class RestaurantRestController {
     private RestaurantService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(
+            value = "View restaurants",
+            notes = "Get available restaurants",
+            response = Restaurant.class,
+            responseContainer = "List")
     public List<Restaurant> getAll(){
         log.info("getAll");
         return service.getAll();
@@ -40,6 +47,7 @@ public class RestaurantRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Create a restaurant")
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant){
         log.info("createWithLocation {}", restaurant);
         checkNew(restaurant);

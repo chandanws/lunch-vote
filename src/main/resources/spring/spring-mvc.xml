@@ -42,7 +42,7 @@
         <!--</property>-->
     </bean>
 
-<context:component-scan base-package="io.philipg.**.web"/>
+    <context:component-scan base-package="io.philipg.**.web"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
@@ -65,4 +65,11 @@
         <property name="basenames" value="file:///#{systemEnvironment['TOPJAVA_ROOT']}/config/messages/app"/>
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
+
+    <!-- Enables swagger ui-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+    <!-- Include a swagger configuration-->
+    <bean name="/applicationSwaggerConfig" class="io.philipg.lunchvote.configuration.ApplicationSwaggerConfig"/>
 </beans>
