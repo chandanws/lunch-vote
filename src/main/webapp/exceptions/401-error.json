@@ -1,0 +1,6 @@
+{
+  "type": "ACCESS_IS_DENIED",
+  "details": [
+    "org.springframework.security.access.AccessDeniedException: Access is denied"
+  ]
+}
