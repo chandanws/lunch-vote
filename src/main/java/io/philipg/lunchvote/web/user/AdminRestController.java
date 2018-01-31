@@ -1,4 +1,4 @@
-package io.philipg.lunchvote.web;
+package io.philipg.lunchvote.web.user;
 
 import io.philipg.lunchvote.model.User;
 import io.philipg.lunchvote.service.UserService;
@@ -21,10 +21,10 @@ import static io.philipg.lunchvote.util.ValidationUtil.assureIdConsistent;
 import static io.philipg.lunchvote.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(value = "/users", description = "Operations about user management")
-public class UserRestController {
-    static final String REST_URL = "/api/users";
+@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = AdminRestController.REST_URL, description = "Operations about user management")
+public class AdminRestController {
+    static final String REST_URL = "/api/admin/users";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

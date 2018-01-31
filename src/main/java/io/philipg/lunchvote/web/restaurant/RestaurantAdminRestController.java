@@ -1,8 +1,9 @@
-package io.philipg.lunchvote.web;
+package io.philipg.lunchvote.web.restaurant;
 
 import io.philipg.lunchvote.model.Restaurant;
 import io.philipg.lunchvote.service.RestaurantService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,23 @@ import static io.philipg.lunchvote.util.ValidationUtil.assureIdConsistent;
 import static io.philipg.lunchvote.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(value = "/restaurants", description = "Operations about restaurants")
-public class RestaurantRestController {
-    static final String REST_URL = "/api/restaurants";
+@RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = RestaurantAdminRestController.REST_URL, description = "Restaurant management")
+public class RestaurantAdminRestController {
+    static final String REST_URL = "/api/admin/restaurants";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private RestaurantService service;
 
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(
-            value = "View restaurants",
+            value = "View restaurants with all states",
             notes = "Get available restaurants",
             response = Restaurant.class,
             responseContainer = "List")
-    public List<Restaurant> getAll(){
+    public List<Restaurant> getAll11(){
         log.info("getAll");
         return service.getAll();
     }

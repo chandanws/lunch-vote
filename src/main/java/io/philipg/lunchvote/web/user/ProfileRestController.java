@@ -1,4 +1,4 @@
-package io.philipg.lunchvote.web;
+package io.philipg.lunchvote.web.user;
 
 import io.philipg.lunchvote.AuthorizedUser;
 import io.philipg.lunchvote.model.User;
@@ -24,7 +24,7 @@ import static io.philipg.lunchvote.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@Api( value = "/profile", description = "Operations about user's profile")
+@Api( value = ProfileRestController.REST_URL, description = "Operations about user's profile")
 public class ProfileRestController {
     static final String REST_URL = "/api/profile";
     private final Logger log = LoggerFactory.getLogger(getClass());

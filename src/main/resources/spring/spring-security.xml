@@ -11,7 +11,8 @@
 
     <http pattern="/api/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
-        <!--<intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
+        <intercept-url pattern="/api/profile/register" access="isAnonymous()"/>
+        <intercept-url pattern="/**/api/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
