@@ -2,12 +2,17 @@ package io.philipg.lunchvote;
 
 import io.philipg.lunchvote.model.Dish;
 import io.philipg.lunchvote.model.State;
+import io.philipg.lunchvote.model.User;
+import io.philipg.lunchvote.web.json.JsonUtil;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static io.philipg.lunchvote.web.json.JsonUtil.writeIgnoreProps;
 import static org.assertj.core.api.Assertions.assertThat;
 import static io.philipg.lunchvote.model.AbstractBaseEntity.START_SEQ;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 public class DishTestData {
 
@@ -42,5 +47,13 @@ public class DishTestData {
 
     public static void assertMatch(Iterable<Dish> actual, Iterable<Dish> expected){
         assertThat(actual).usingElementComparatorIgnoringFields("restaurant").isEqualTo(expected);
+    }
+
+    public static ResultMatcher contentJson(Dish... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "restaurant"));
+    }
+
+    public static ResultMatcher contentJson(Dish expected) {
+        return content().json(writeIgnoreProps(expected, "restaurant"));
     }
 }

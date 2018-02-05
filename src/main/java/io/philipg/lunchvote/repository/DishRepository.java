@@ -13,7 +13,7 @@ public interface DishRepository {
     boolean delete(int id, int restaurantId);
 
     // null if not found
-    Dish get(int id, int restaurantId);
+    Dish get(int id);
 
     Dish getWithRestaurant(int id, int restaurantId);
 

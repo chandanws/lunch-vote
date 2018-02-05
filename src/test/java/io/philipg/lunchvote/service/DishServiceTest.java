@@ -45,7 +45,7 @@ public class DishServiceTest extends AbstractServiceTest {
     public void update(){
         Dish updated = getUpdated();
         service.update(updated, RESTAURANT1_ID);
-        assertMatch(service.get(DISH1_ID, RESTAURANT1_ID), updated);
+        assertMatch(service.get(DISH1_ID), updated);
     }
 
     @Test
@@ -70,14 +70,14 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void get(){
-        Dish dish = service.get(DISH1_ID, RESTAURANT1_ID);
+        Dish dish = service.get(DISH1_ID);
         assertMatch(dish, DISH1);
     }
 
     @Test
     public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(DISH1_ID, RESTAURANT3_ID);
+        service.get(DISH1_ID);
     }
 
     @Test
