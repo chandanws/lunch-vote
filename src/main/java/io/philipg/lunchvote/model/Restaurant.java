@@ -1,9 +1,12 @@
 package io.philipg.lunchvote.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.List;
 
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
@@ -16,6 +19,7 @@ public class Restaurant extends AbstractNamedEntity {
     @Enumerated(EnumType.STRING)
     private State state = State.STATE_ACTIVE;
 
+    //@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name ASC")
     private List<Dish> dishes;
@@ -36,6 +40,30 @@ public class Restaurant extends AbstractNamedEntity {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     @Override

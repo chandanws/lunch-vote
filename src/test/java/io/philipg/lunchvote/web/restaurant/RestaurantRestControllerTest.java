@@ -1,5 +1,6 @@
 package io.philipg.lunchvote.web.restaurant;
 
+import io.philipg.lunchvote.TestUtil;
 import io.philipg.lunchvote.service.RestaurantService;
 import io.philipg.lunchvote.web.AbstractControllerTest;
 import org.junit.Test;
@@ -24,7 +25,14 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     protected RestaurantService service;
 
     @Test
-    public void testGetAllByState() throws Exception{}
+    public void testGetAllByState() throws Exception{
+        TestUtil.print(
+                mockMvc.perform(get(REST_URL)
+                        .with(userHttpBasic(USER)))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                        .andExpect(contentJson(RESTAURANT1, RESTAURANT3)));
+    }
 
     @Test
     public void testGet() throws Exception {
@@ -32,7 +40,6 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                // https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(RESTAURANT1));
     }

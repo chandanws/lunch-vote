@@ -38,7 +38,7 @@ public class RestaurantAdminRestController {
             notes = "Get available restaurants",
             response = Restaurant.class,
             responseContainer = "List")
-    public List<Restaurant> getAll11(){
+    public List<Restaurant> getAll(){
         log.info("getAll");
         return service.getAll();
     }

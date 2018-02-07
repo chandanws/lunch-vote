@@ -1,5 +1,6 @@
 package io.philipg.lunchvote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.philipg.lunchvote.HasId;
 import org.hibernate.Hibernate;
 
@@ -32,6 +33,7 @@ public abstract class AbstractBaseEntity implements HasId {
     }
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }

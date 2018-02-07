@@ -16,8 +16,8 @@ INSERT INTO user_roles (role, user_id) VALUES
 
 INSERT INTO restaurants (name, address, phone, website, state) VALUES
   ('Corsar', 'Rehov Onyon 1, Ashdod, Israel', '+972 8-855-5090', 'https://corsar.com', 'STATE_ACTIVE'),
-  ('Pinta', '1 Ha Ha-Banaim, Ashdod 7760901, Israel', '+972 8-856-6069', 'https://pinta.com', 'STATE_ACTIVE'),
-  ('Kira', 'Givat Yona 4, Yair Stern, Ashdod 7722611, Israel', '+972 8-856-1632', 'https://kira.com', 'STATE_DISABLED');
+  ('Kira', 'Givat Yona 4, Yair Stern, Ashdod 7722611, Israel', '+972 8-856-1632', 'https://kira.com', 'STATE_DISABLED'),
+  ('Pinta', '1 Ha Ha-Banaim, Ashdod 7760901, Israel', '+972 8-856-6069', 'https://pinta.com', 'STATE_ACTIVE');
 
 INSERT INTO dishes (name, price, description, state, restaurant_id) VALUES
   ('Cheeseburger', 30, 'Cheeseburger Ingredients', 'STATE_ACTIVE', 100002),
